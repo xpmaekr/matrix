@@ -2,6 +2,15 @@
 # Установка: бинарник в /usr/local/bin + хук перекраски при смене темы Omarchy
 set -euo pipefail
 
+# Зависимости: ncurses и gcc — ставим через pacman, если их нет.
+pkgs=()
+pacman -T ncurses &>/dev/null || pkgs+=(ncurses)
+command -v g++ &>/dev/null || pkgs+=(gcc)
+if ((${#pkgs[@]})); then
+    echo "[*] Ставлю зависимости: ${pkgs[*]}"
+    sudo pacman -S --needed "${pkgs[@]}"
+fi
+
 if [[ ! -f build/matrix ]]; then
     ./build.sh
 fi
