@@ -3,5 +3,5 @@
 set -euo pipefail
 
 mkdir -p build
-g++ -O2 matrix_theme.cpp -lncurses -o build/matrix
+g++ -O2 -static-libstdc++ -static-libgcc matrix_theme.cpp -lncursesw -ltinfo -o build/matrix
 echo "[+] Собрано: build/matrix  (запуск: ./build/matrix)"

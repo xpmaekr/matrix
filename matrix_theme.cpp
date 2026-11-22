@@ -44,9 +44,21 @@ static bool parse_hex(const std::string& value, RGB& out) {
     if (hash == std::string::npos || v.size() < hash + 7) return false;
     std::string h = v.substr(hash + 1, 6);
     for (char c : h) if (!isxdigit((unsigned char)c)) return false;
-    out.r = std::stoi(h.substr(0, 2), nullptr, 16);
-    out.g = std::stoi(h.substr(2, 2), nullptr, 16);
-    out.b = std::stoi(h.substr(4, 2), nullptr, 16);
+    auto hex2 = [](const std::string& two) {
+        int v = 0;
+        for (char c : two) {
+            int d;
+            if (c >= '0' && c <= '9') d = c - '0';
+            else if (c >= 'a' && c <= 'f') d = c - 'a' + 10;
+            else if (c >= 'A' && c <= 'F') d = c - 'A' + 10;
+            else return -1;
+            v = v * 16 + d;
+        }
+        return v;
+    };
+    out.r = hex2(h.substr(0, 2));
+    out.g = hex2(h.substr(2, 2));
+    out.b = hex2(h.substr(4, 2));
     return true;
 }
 

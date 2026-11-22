@@ -42,6 +42,18 @@
 `pacman` (Arch), `apt` (Debian/Ubuntu), `dnf` (Fedora), `zypper` (openSUSE),
 `apk` (Alpine), `xbps` (Void), `nix-shell` (NixOS).
 
+## Портативная сборка
+
+Нужен бинарь, который запустится на любом дистрибутиве без зависимостей? Собери статически:
+
+```bash
+./build-portable.sh   # требует docker;musl + статический ncurses
+```
+
+На выходе `build/matrix` — полностью статический ELF (~1.5 МБ): без glibc, libstdc++ и ncurses в зависимостях. Запускается везде: glibc и musl системы, любые версии библиотек.
+
+`install.sh` сам предпочтёт готовый `build/matrix`, если он есть; иначе при наличии Docker соберёт статически, а без Docker — локальным тулчейном.
+
 ## Установка
 
 ```bash
