@@ -4,11 +4,11 @@
 
 **ASCII-карта Земли из «Матрицы», которая живёт прямо в твоём терминале.**
 
-Кастомный эффект на C++ и ncurses, собранный специально под Arch Linux.
+Кастомный эффект на C++ и ncurses. Работает на любом Linux-дистрибутиве, а на Omarchy ещё и перекрашивается вместе с темой.
 Карта Земли нарисована из нулей и единиц, глитчит каждый кадр и парит по центру экрана,
 а вокруг идёт лёгкий матричный дождь. Идеально для лока на втором мониторе.
 
-![Arch Linux](https://img.shields.io/badge/Arch_Linux-1793D1?style=for-the-badge&logo=archlinux&logoColor=white)
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
 ![C++](https://img.shields.io/badge/C%2B%2B-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)
 ![ncurses](https://img.shields.io/badge/ncurses-terminal-4B8BBE?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
@@ -34,11 +34,13 @@
 
 | Зависимость | Зачем |
 |---|---|
-| Arch Linux / производные | установка через `pacman` |
-| `gcc` | компиляция C++ |
-| `ncurses` | отрисовка в терминале |
+| Любой Linux-дистрибутив | установка через `install.sh` |
+| `g++` (или любой C++-компилятор) | компиляция |
+| `ncurses` + dev-заголовки | отрисовка в терминале |
 
-Скрипт установки проверит и поставит `ncurses` и `gcc` через `pacman` сам.
+Скрипт установки сам определяет пакетный менеджер и ставит зависимости:
+`pacman` (Arch), `apt` (Debian/Ubuntu), `dnf` (Fedora), `zypper` (openSUSE),
+`apk` (Alpine), `xbps` (Void), `nix-shell` (NixOS).
 
 ## Установка
 
@@ -50,10 +52,10 @@ cd matrix
 
 `install.sh`:
 
-1. проверяет зависимости и, если их нет, ставит через `sudo pacman -S --needed ncurses gcc`
+1. определяет пакетный менеджер и ставит `gcc` и `ncurses`, если их нет
 2. собирает C++-код в бинарник
 3. кладёт его в `/usr/local/bin/matrix`
-4. ставит хук перекраски в `~/.config/omarchy/hooks/theme-set.d/`
+4. только на Omarchy ставит хук перекраски в `~/.config/omarchy/hooks/theme-set.d/`
 
 После этого `matrix` доступен из любого места.
 
